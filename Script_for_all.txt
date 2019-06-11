@@ -1,0 +1,135 @@
+#!/bin/bash
+USERNAME=ansible
+HOSTS="slave01 slave02"
+SCRIPT="pwd; ls"
+for HOSTNAME in ${HOSTS} ; do
+    ssh -i .ssh/id_rsa -l ${USERNAME} ${HOSTNAME} "${SCRIPT}"
+done
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Linux ssh and Deployment all servers
+
+#!/bin/bash
+USERNAME=someUser
+HOSTS="host1 host2 host3"
+SCRIPT="pwd; ls"
+for HOSTNAME in ${HOSTS} ; do
+    ssh -l ${USERNAME} ${HOSTNAME} "${SCRIPT}"
+done
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Linux ssh and deployement all servers
+#!/bin/bash
+USERNAME=dharanisunil.sekhar
+HOSTS="10.6.2.70 10.6.2.44"
+SCRIPT="pwd; ls"
+for HOSTNAME in ${HOSTS} ; do
+   ssh -i -P Sdhara@047 -l ${USERNAME} ${HOSTNAME} "${SCRIPT}"
+done
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Windows Rdp Deployment
+#!/bin/bash
+if [ "$1" == ""&& "$2" == "" ]; then
+if [ -z "$1" ] ||[-z"$2"]; then
+fi
+
+if [ "$2" == "login" ]; then
+
+sshpass -p 'password' ssh -o
+StrictHostkeyChecking=no -t
+Administrator@$1
+
+fi
+
+if [ "$2" == "log" ];then
+sshpass -p 'password' ssh -o
+StrictHostkeyChecking=no -t
+Administrator@$1 "path;multitail -s 4 -Ci cyan *txt"
+
+fi
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+#!/bin/bash
+USERNAME=someUser
+HOSTS="host1 host2 host3"
+SCRIPT="pwd; ls"
+for HOSTNAME in ${HOSTS} ; do
+    ssh -l ${USERNAME} ${HOSTNAME} "${SCRIPT}"
+done
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+filename="/home/ronnie/tmp/hello"
+
+date=$(date)
+echo "$date" >> $filename
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.
+#!/bin/sh
+while :
+do
+  echo "Please type something in (^C to quit)"
+  read INPUT_STRING
+  echo "You typed: $INPUT_STRING"
+done
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#!/bin/sh
+for i in 1 2 3 4 5
+do
+  echo "Looping ... number $i"
+done
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#!/bin/bash
+service=replace_me_with_a_valid_service
+
+if (( $(ps -ef | grep -v grep | grep $service | wc -l) > 0 ))
+then
+echo "$service is running!!!"
+else
+/etc/init.d/$service start
+fi
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+* * * * * /path/to/script
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+To list out the services that are running currently and if it is not start the services and send out an email the current status
+#!/bin/bash
+
+###edit the following
+service=service_name
+email=user@domain.com
+###stop editing
+
+host=`hostname -f`
+if (( $(ps -ef | grep -v grep | grep $service | wc -l) > 0 ))
+then
+echo "$service is running"
+else
+/etc/init.d/$service start
+if (( $(ps -ef | grep -v grep | grep $service | wc -l) > 0 ))
+then
+subject="$service at $host has been started"
+echo "$service at $host wasn't running and has been started" | mail -s "$subject" $email
+else
+subject="$service at $host is not running"
+echo "$service at $host is stopped and cannot be started!!!" | mail -s "$subject" $email
+fi
+fi
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+To check cpu utilization 
+
+#!/bin/bash
+
+CPU_USAGE=$(top -b -n2 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }')
+DATE=$(date "+%Y-%m-%d %H:%M:")
+CPU_USAGE="$DATE CPU: $CPU_USAGE"
+echo $CPU_USAGE >> /opt/cpu_usage.out
+
+*/1 * * * * root /opt/your_script.sh
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Script to that print cpu usage, Ram disk usage
+top for cpu usage, free -m for memory, df -lh for hdd space
+
+#!/bin/bash     
+echo CPU: `top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'` 
+FREE_DATA=`free -m | grep Mem` 
+CURRENT=`echo $FREE_DATA | cut -f3 -d' '`
+TOTAL=`echo $FREE_DATA | cut -f2 -d' '`
+echo RAM: $(echo "scale = 2; $CURRENT/$TOTAL*100" | bc)
+echo HDD: `df -lh | awk '{if ($6 == "/") { print $5 }}' | head -1 | cut -d'%' -f1`
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
