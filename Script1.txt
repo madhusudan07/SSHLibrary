@@ -1,0 +1,16 @@
+#!/bin/bash
+USERNAME=ansible
+HOSTS="slave01 slave02"
+SCRIPT="pwd; ls"
+for HOSTNAME in ${HOSTS} ; do
+    ssh -i .ssh/id_rsa -l ${USERNAME} ${HOSTNAME} "${SCRIPT}"
+done
+
+
+#!/bin/bash
+USERNAME=someUser
+HOSTS="host1 host2 host3"
+SCRIPT="pwd; ls"
+for HOSTNAME in ${HOSTS} ; do
+    ssh -l ${USERNAME} ${HOSTNAME} "${SCRIPT}"
+done
